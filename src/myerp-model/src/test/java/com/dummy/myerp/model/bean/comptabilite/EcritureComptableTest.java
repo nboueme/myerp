@@ -72,7 +72,7 @@ class EcritureComptableTest {
 
     @Test
     void getReference() {
-        vEcriture.setReference("BQ-2016/00001");
+        vEcriture.setReference("BQ-2016/00003");
         assertTrue(vEcriture.getReference().matches("[A-Z]{1,5}-\\d{4}/\\d{5}"), "The reference doesn't matches with the pattern \"XX-AAAA/#####\"");
     }
 }
