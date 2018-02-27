@@ -4,28 +4,38 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import org.apache.commons.lang3.ObjectUtils;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class EcritureComptableTest {
+class EcritureComptableTest {
+
+    private static EcritureComptable vEcriture;
+
+    @BeforeEach
+    void init() {
+        vEcriture = new EcritureComptable();
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        vEcriture = null;
+    }
 
     private LigneEcritureComptable createLigne(Integer pCompteComptableNumero, String pDebit, String pCredit) {
         BigDecimal vDebit = pDebit == null ? null : new BigDecimal(pDebit).setScale(2, RoundingMode.CEILING);
         BigDecimal vCredit = pCredit == null ? null : new BigDecimal(pCredit).setScale(2, RoundingMode.CEILING);
         String vLibelle = ObjectUtils.defaultIfNull(vDebit, BigDecimal.ZERO)
                                      .subtract(ObjectUtils.defaultIfNull(vCredit, BigDecimal.ZERO)).toPlainString();
-        LigneEcritureComptable vRetour = new LigneEcritureComptable(new CompteComptable(pCompteComptableNumero),
-                                                                    vLibelle,
-                                                                    vDebit, vCredit);
-        return vRetour;
+        return new LigneEcritureComptable(new CompteComptable(pCompteComptableNumero), vLibelle, vDebit, vCredit);
     }
 
     @Test
-    public void isEquilibree() {
-        EcritureComptable vEcriture = new EcritureComptable();
-
+    void isEquilibree() {
         vEcriture.setLibelle("Equilibrée");
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "200.50", null));
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "100.50", "33"));
@@ -42,4 +52,27 @@ public class EcritureComptableTest {
         assertFalse(vEcriture.isEquilibree(), vEcriture.toString());
     }
 
+    @Test
+    void getTotalDebit() {
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, "200.50", null));
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, "100.50", "33"));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "301"));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, "40", "7"));
+        assertEquals(vEcriture.getTotalDebit().intValue(), 341);
+    }
+
+    @Test
+    void getTotalCredit() {
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, "10", null));
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, "20", "1"));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "30"));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, "1", "2"));
+        assertEquals(vEcriture.getTotalCredit().intValue(), 33);
+    }
+
+    @Test
+    void getReference() {
+        vEcriture.setReference("BQ-2016/00001");
+        assertTrue(vEcriture.getReference().matches("[A-Z]{1,5}-\\d{4}/\\d{5}"), "The reference doesn't matches with the pattern \"XX-AAAA/#####\"");
+    }
 }
