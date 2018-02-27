@@ -5,7 +5,6 @@ import java.math.RoundingMode;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -74,5 +73,15 @@ class EcritureComptableTest {
     void getReference() {
         vEcriture.setReference("BQ-2016/00003");
         assertTrue(vEcriture.getReference().matches("[A-Z]{1,5}-\\d{4}/\\d{5}"), "The reference doesn't matches with the pattern \"XX-AAAA/#####\"");
+    }
+
+
+    @Test
+    void referenceCodeEqualJournalCode() {
+        vEcriture.setJournal(new JournalComptable("BQ", "Banque"));
+        vEcriture.setReference("BQ-2016/00003");
+        assertTrue(
+                vEcriture.getReference().substring(0, 2).equals(vEcriture.getJournal().getCode()),
+                vEcriture.toString());
     }
 }
