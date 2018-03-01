@@ -42,7 +42,7 @@ class ComptabiliteManagerImplTest {
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                                                                                  null, null,
                                                                                  new BigDecimal(123)));
-        manager.checkEcritureComptableUnit(vEcritureComptable);
+        assertThrows(NullPointerException.class, () -> manager.checkEcritureComptableUnit(vEcritureComptable));
     }
 
     @Test
