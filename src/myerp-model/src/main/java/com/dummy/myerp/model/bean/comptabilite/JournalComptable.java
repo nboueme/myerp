@@ -2,10 +2,8 @@ package com.dummy.myerp.model.bean.comptabilite;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -25,10 +23,6 @@ public class JournalComptable {
     @NotNull
     @Size(min = 1, max = 150)
     private String libelle;
-
-    /** La liste des séquences d'écriture comptable. */
-    @Valid
-    private final List<SequenceEcritureComptable> listSequenceEcriture = new ArrayList<>();
 
 
     // ==================== Constructeurs ====================
@@ -63,9 +57,6 @@ public class JournalComptable {
     public void setLibelle(String pLibelle) {
         libelle = pLibelle;
     }
-    public List<SequenceEcritureComptable> getListSequenceEcriture() {
-        return listSequenceEcriture;
-    }
 
 
     // ==================== Méthodes ====================
@@ -76,7 +67,6 @@ public class JournalComptable {
         vStB.append("{")
                 .append("code='").append(code).append('\'')
                 .append(vSEP).append("libelle='").append(libelle).append('\'')
-                .append(StringUtils.join(listSequenceEcriture, "\n")).append("\n]")
                 .append("}");
         return vStB.toString();
     }

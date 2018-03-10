@@ -57,7 +57,7 @@ class EcritureComptableTest {
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "100.50", "33"));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "301"));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, "40", "7"));
-        assertEquals(vEcriture.getTotalDebit().intValue(), 341);
+        assertEquals(341, vEcriture.getTotalDebit().intValue());
     }
 
     @Test
@@ -66,7 +66,7 @@ class EcritureComptableTest {
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "20", "1"));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "30"));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, "1", "2"));
-        assertEquals(vEcriture.getTotalCredit().intValue(), 33);
+        assertEquals(33, vEcriture.getTotalCredit().intValue());
     }
 
     @Test

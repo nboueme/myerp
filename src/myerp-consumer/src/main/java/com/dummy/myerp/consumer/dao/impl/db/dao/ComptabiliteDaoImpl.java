@@ -51,7 +51,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
     // ==================== Méthodes ====================
     /** SQLgetListCompteComptable */
     private static String SQLgetListCompteComptable;
-    public static void setSQLgetListCompteComptable(String pSQLgetListCompteComptable) {
+    public void setSQLgetListCompteComptable(String pSQLgetListCompteComptable) {
         SQLgetListCompteComptable = pSQLgetListCompteComptable;
     }
     @Override
@@ -64,7 +64,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 
     /** SQLgetListJournalComptable */
     private static String SQLgetListJournalComptable;
-    public static void setSQLgetListJournalComptable(String pSQLgetListJournalComptable) {
+    public void setSQLgetListJournalComptable(String pSQLgetListJournalComptable) {
         SQLgetListJournalComptable = pSQLgetListJournalComptable;
     }
     @Override
@@ -78,7 +78,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 
     /** SQLgetListEcritureComptable */
     private static String SQLgetListEcritureComptable;
-    public static void setSQLgetListEcritureComptable(String pSQLgetListEcritureComptable) {
+    public void setSQLgetListEcritureComptable(String pSQLgetListEcritureComptable) {
         SQLgetListEcritureComptable = pSQLgetListEcritureComptable;
     }
     @Override
@@ -91,7 +91,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 
     /** SQLgetEcritureComptable */
     private static String SQLgetEcritureComptable;
-    public static void setSQLgetEcritureComptable(String pSQLgetEcritureComptable) {
+    public void setSQLgetEcritureComptable(String pSQLgetEcritureComptable) {
         SQLgetEcritureComptable = pSQLgetEcritureComptable;
     }
     @Override
@@ -112,7 +112,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 
     /** SQLgetEcritureComptableByRef */
     private static String SQLgetEcritureComptableByRef;
-    public static void setSQLgetEcritureComptableByRef(String pSQLgetEcritureComptableByRef) {
+    public void setSQLgetEcritureComptableByRef(String pSQLgetEcritureComptableByRef) {
         SQLgetEcritureComptableByRef = pSQLgetEcritureComptableByRef;
     }
     @Override
@@ -133,7 +133,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 
     /** SQLloadListLigneEcriture */
     private static String SQLloadListLigneEcriture;
-    public static void setSQLloadListLigneEcriture(String pSQLloadListLigneEcriture) {
+    public void setSQLloadListLigneEcriture(String pSQLloadListLigneEcriture) {
         SQLloadListLigneEcriture = pSQLloadListLigneEcriture;
     }
     @Override
@@ -152,7 +152,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 
     /** SQLinsertEcritureComptable */
     private static String SQLinsertEcritureComptable;
-    public static void setSQLinsertEcritureComptable(String pSQLinsertEcritureComptable) {
+    public void setSQLinsertEcritureComptable(String pSQLinsertEcritureComptable) {
         SQLinsertEcritureComptable = pSQLinsertEcritureComptable;
     }
     @Override
@@ -178,7 +178,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 
     /** SQLinsertListLigneEcritureComptable */
     private static String SQLinsertListLigneEcritureComptable;
-    public static void setSQLinsertListLigneEcritureComptable(String pSQLinsertListLigneEcritureComptable) {
+    public void setSQLinsertListLigneEcritureComptable(String pSQLinsertListLigneEcritureComptable) {
         SQLinsertListLigneEcritureComptable = pSQLinsertListLigneEcritureComptable;
     }
     /**
@@ -209,7 +209,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 
     /** SQLupdateEcritureComptable */
     private static String SQLupdateEcritureComptable;
-    public static void setSQLupdateEcritureComptable(String pSQLupdateEcritureComptable) {
+    public void setSQLupdateEcritureComptable(String pSQLupdateEcritureComptable) {
         SQLupdateEcritureComptable = pSQLupdateEcritureComptable;
     }
     @Override
@@ -235,7 +235,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 
     /** SQLdeleteEcritureComptable */
     private static String SQLdeleteEcritureComptable;
-    public static void setSQLdeleteEcritureComptable(String pSQLdeleteEcritureComptable) {
+    public void setSQLdeleteEcritureComptable(String pSQLdeleteEcritureComptable) {
         SQLdeleteEcritureComptable = pSQLdeleteEcritureComptable;
     }
     @Override
@@ -252,7 +252,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 
     /** getSequenceByCodeAndAnneeCourante */
     private static String SQLgetSequenceByCodeAndAnneeCourante;
-    public static void setSQLgetSequenceByCodeAndAnneeCourante(String pSQLgetSequenceByCodeAndAnneeCourante) {
+    public void setSQLgetSequenceByCodeAndAnneeCourante(String pSQLgetSequenceByCodeAndAnneeCourante) {
         SQLgetSequenceByCodeAndAnneeCourante = pSQLgetSequenceByCodeAndAnneeCourante;
     }
     @Override
@@ -272,7 +272,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 
     /** SQLinsertSequenceEcritureComptable */
     private static String SQLupsertSequenceEcritureComptable;
-    public static void setSQLupsertSequenceEcritureComptable(String pSQLupsertSequenceEcritureComptable) {
+    public void setSQLupsertSequenceEcritureComptable(String pSQLupsertSequenceEcritureComptable) {
         SQLupsertSequenceEcritureComptable = pSQLupsertSequenceEcritureComptable;
     }
     @Override
@@ -288,7 +288,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 
     /** SQLdeleteListLigneEcritureComptable */
     private static String SQLdeleteListLigneEcritureComptable;
-    public static void setSQLdeleteListLigneEcritureComptable(String pSQLdeleteListLigneEcritureComptable) {
+    public void setSQLdeleteListLigneEcritureComptable(String pSQLdeleteListLigneEcritureComptable) {
         SQLdeleteListLigneEcritureComptable = pSQLdeleteListLigneEcritureComptable;
     }
     /**
