@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 import com.dummy.myerp.consumer.ConsumerHelper;
 import com.dummy.myerp.consumer.dao.contrat.DaoProxy;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 
 /**
@@ -54,7 +56,7 @@ public abstract class AbstractDbConsumer {
      * @return SimpleJdbcTemplate
      */
     protected DataSource getDataSource(DataSourcesEnum pDataSourceId) {
-        DataSource vRetour = this.mapDataSource.get(pDataSourceId);
+        DataSource vRetour = AbstractDbConsumer.mapDataSource.get(pDataSourceId);
         if (vRetour == null) {
             throw new UnsatisfiedLinkError("La DataSource suivante n'a pas été initialisée : " + pDataSourceId);
         }
@@ -76,11 +78,14 @@ public abstract class AbstractDbConsumer {
     protected <T> T queryGetSequenceValuePostgreSQL(DataSourcesEnum pDataSourcesId,
                                                     String pSeqName, Class<T> pSeqValueClass) {
 
-        JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource(pDataSourcesId));
-        String vSeqSQL = "SELECT last_value FROM " + pSeqName;
-        T vSeqValue = vJdbcTemplate.queryForObject(vSeqSQL, pSeqValueClass);
+        //JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource(pDataSourcesId));
+        //String vSeqSQL = "SELECT last_value FROM " + pSeqName;
+        NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource(pDataSourcesId));
+        String vSeqSQL = "SELECT last_value FROM :sequence";
+        MapSqlParameterSource vSqlParams = new MapSqlParameterSource();
+        vSqlParams.addValue("sequence", pSeqName);
 
-        return vSeqValue;
+        return vJdbcTemplate.queryForObject(vSeqSQL, vSqlParams, pSeqValueClass);
     }
 
 
