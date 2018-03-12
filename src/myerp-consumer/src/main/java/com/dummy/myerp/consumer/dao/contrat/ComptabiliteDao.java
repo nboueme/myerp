@@ -94,7 +94,7 @@ public interface ComptabiliteDao {
      *
      * @param pSequence la séquence recherchée
      */
-    SequenceEcritureComptable getSequenceByCodeAndAnneeCourante(SequenceEcritureComptable pSequence);
+    SequenceEcritureComptable getSequenceByCodeAndAnneeCourante(SequenceEcritureComptable pSequence) throws NotFoundException;
 
     /**
      * Insert une nouvelle séquence écriture comptable ou en met une déjà existante à jour.

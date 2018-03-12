@@ -1,6 +1,7 @@
 package com.dummy.myerp.business.impl.manager;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -47,7 +48,7 @@ class ComptabiliteManagerImplTest extends BusinessTestCase {
     void addReference() throws Exception {
         vEcritureComptable.setId(-1);
         vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
-        vEcritureComptable.setDate(vCurrentDate);
+        vEcritureComptable.setDate(new SimpleDateFormat("yyyy/MM/dd").parse("2016/12/31"));
         vEcritureComptable.setLibelle("Cartouches d’imprimante");
 
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(606),
@@ -175,7 +176,30 @@ class ComptabiliteManagerImplTest extends BusinessTestCase {
 
     @Test
     void insertEcritureComptable() throws FunctionalException {
-        //getBusinessProxy().getComptabiliteManager().insertEcritureComptable(vEcritureComptable);
+        /*vEcritureComptable.setJournal(new JournalComptable("BQ", "Banque"));
+        vEcritureComptable.setDate(vCurrentDate);
+        vEcritureComptable.setLibelle("Paiement Facture H110001");
+
+        vEcritureComptable.setReference(vEcritureComptable.getJournal().getCode() +
+                "-" + vCurrentYear +
+                "/" + "00001"
+        );
+
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(606),
+                "Facture C110004", new BigDecimal(5700),
+                null));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(4456),
+                "TMA Appli Xxx", null,
+                new BigDecimal(4750)));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
+                "TVA 20%", null,
+                new BigDecimal(950)));
+
+        try {
+            manager.insertEcritureComptable(vEcritureComptable);
+        } catch (Exception e) {
+            fail("Une autre écriture comptable existe déjà avec la même référence.");
+        }*/
     }
 
     @Test

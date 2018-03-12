@@ -1,7 +1,5 @@
 package com.dummy.myerp.model.bean.comptabilite;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.List;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
