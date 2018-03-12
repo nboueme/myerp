@@ -46,7 +46,7 @@
 
 
     <!-- ==================== External database properties file ==================== -->
-    <context:property-placeholder location="file://#{systemProperties['user.home']}/Documents/java/javaee/myerp/properties/datasource.properties"/>
+    <context:property-placeholder location="classpath:database.properties"/>
 
 
     <!-- ==================== Databases ==================== -->
