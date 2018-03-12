@@ -185,7 +185,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
      * Insert les lignes d'écriture de l'écriture comptable
      * @param pEcritureComptable l'écriture comptable
      */
-    protected void insertListLigneEcritureComptable(EcritureComptable pEcritureComptable) {
+    private void insertListLigneEcritureComptable(EcritureComptable pEcritureComptable) {
         NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource(DataSourcesEnum.MYERP));
         MapSqlParameterSource vSqlParams = new MapSqlParameterSource();
         vSqlParams.addValue(ECRITURE_ID, pEcritureComptable.getId());
@@ -250,6 +250,25 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
         vJdbcTemplate.update(SQLdeleteEcritureComptable, vSqlParams);
     }
 
+    /** SQLdeleteListLigneEcritureComptable */
+    private static String SQLdeleteListLigneEcritureComptable;
+    public void setSQLdeleteListLigneEcritureComptable(String pSQLdeleteListLigneEcritureComptable) {
+        SQLdeleteListLigneEcritureComptable = pSQLdeleteListLigneEcritureComptable;
+    }
+    /**
+     * Supprime les lignes d'écriture de l'écriture comptable d'id {@code pEcritureId}
+     * @param pEcritureId id de l'écriture comptable
+     */
+    private void deleteListLigneEcritureComptable(Integer pEcritureId) {
+        NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource(DataSourcesEnum.MYERP));
+        MapSqlParameterSource vSqlParams = new MapSqlParameterSource();
+        vSqlParams.addValue(ECRITURE_ID, pEcritureId);
+        vJdbcTemplate.update(SQLdeleteListLigneEcritureComptable, vSqlParams);
+    }
+
+
+    // ==================== SequenceEcritureComptable ====================
+
     /** getSequenceByCodeAndAnneeCourante */
     private static String SQLgetSequenceByCodeAndAnneeCourante;
     public void setSQLgetSequenceByCodeAndAnneeCourante(String pSQLgetSequenceByCodeAndAnneeCourante) {
@@ -284,21 +303,5 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
         vSqlParams.addValue("derniere_valeur", pSequence.getDerniereValeur());
 
         vJdbcTemplate.update(SQLupsertSequenceEcritureComptable, vSqlParams);
-    }
-
-    /** SQLdeleteListLigneEcritureComptable */
-    private static String SQLdeleteListLigneEcritureComptable;
-    public void setSQLdeleteListLigneEcritureComptable(String pSQLdeleteListLigneEcritureComptable) {
-        SQLdeleteListLigneEcritureComptable = pSQLdeleteListLigneEcritureComptable;
-    }
-    /**
-     * Supprime les lignes d'écriture de l'écriture comptable d'id {@code pEcritureId}
-     * @param pEcritureId id de l'écriture comptable
-     */
-    private void deleteListLigneEcritureComptable(Integer pEcritureId) {
-        NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource(DataSourcesEnum.MYERP));
-        MapSqlParameterSource vSqlParams = new MapSqlParameterSource();
-        vSqlParams.addValue(ECRITURE_ID, pEcritureId);
-        vJdbcTemplate.update(SQLdeleteListLigneEcritureComptable, vSqlParams);
     }
 }

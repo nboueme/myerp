@@ -11,6 +11,7 @@ import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
 import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
 import com.dummy.myerp.model.bean.comptabilite.LigneEcritureComptable;
 import com.dummy.myerp.technical.exception.FunctionalException;
+import com.dummy.myerp.technical.exception.NotFoundException;
 import com.dummy.myerp.testbusiness.business.BusinessTestCase;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -48,8 +49,7 @@ class ComptabiliteManagerImplTest extends BusinessTestCase {
     void addReference() throws Exception {
         vEcritureComptable.setId(-1);
         vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
-        //vEcritureComptable.setDate(new SimpleDateFormat("yyyy/MM/dd").parse("2016/12/31"));
-        vEcritureComptable.setDate(vCurrentDate); // I WANT TO FAIL !!
+        vEcritureComptable.setDate(new SimpleDateFormat("yyyy/MM/dd").parse("2016/12/31"));
         vEcritureComptable.setLibelle("Cartouches d’imprimante");
 
         vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(606),
@@ -63,6 +63,11 @@ class ComptabiliteManagerImplTest extends BusinessTestCase {
                 new BigDecimal(51)));
 
         getBusinessProxy().getComptabiliteManager().addReference(vEcritureComptable);
+
+        assertThrows(NotFoundException.class, () -> {
+            vEcritureComptable.setDate(vCurrentDate);
+            getBusinessProxy().getComptabiliteManager().addReference(vEcritureComptable);
+        });
     }
 
     @Test
@@ -170,7 +175,7 @@ class ComptabiliteManagerImplTest extends BusinessTestCase {
         });
         assertThrows(FunctionalException.class, () -> {
             vEcritureComptable.setId(0);
-            vEcritureComptable.setReference("VE-2016/00004");
+            vEcritureComptable.setReference("VE-2016/00002");
             manager.checkEcritureComptableContext(vEcritureComptable);
         });
     }
