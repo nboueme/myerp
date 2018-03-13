@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
+import com.dummy.myerp.business.contrat.manager.ComptabiliteManager;
 import com.dummy.myerp.model.bean.comptabilite.CompteComptable;
 import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
 import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
@@ -23,14 +24,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ComptabiliteManagerImplTest extends BusinessTestCase {
 
-    private ComptabiliteManagerImpl manager = new ComptabiliteManagerImpl();
-
+    private static ComptabiliteManagerImpl manager;
+    private static ComptabiliteManager managerIntegration;
     private static EcritureComptable vEcritureComptable;
     private static Date vCurrentDate;
     private static Integer vCurrentYear;
 
     @BeforeAll
     static void initAll() {
+        manager = new ComptabiliteManagerImpl();
+        managerIntegration = getBusinessProxy().getComptabiliteManager();
         vCurrentDate = new Date();
         vCurrentYear = LocalDateTime.ofInstant(vCurrentDate.toInstant(), ZoneId.systemDefault()).toLocalDate().getYear();
     }
@@ -62,11 +65,11 @@ class ComptabiliteManagerImplTest extends BusinessTestCase {
                 "Facture F110001", null,
                 new BigDecimal(51)));
 
-        getBusinessProxy().getComptabiliteManager().addReference(vEcritureComptable);
+        managerIntegration.addReference(vEcritureComptable);
 
         assertThrows(NotFoundException.class, () -> {
             vEcritureComptable.setDate(vCurrentDate);
-            getBusinessProxy().getComptabiliteManager().addReference(vEcritureComptable);
+            managerIntegration.addReference(vEcritureComptable);
         });
     }
 
@@ -178,48 +181,5 @@ class ComptabiliteManagerImplTest extends BusinessTestCase {
             vEcritureComptable.setReference("VE-2016/00002");
             manager.checkEcritureComptableContext(vEcritureComptable);
         });
-    }
-
-    @Test
-    void insertEcritureComptable() throws FunctionalException {
-        /*vEcritureComptable.setJournal(new JournalComptable("BQ", "Banque"));
-        vEcritureComptable.setDate(vCurrentDate);
-        vEcritureComptable.setLibelle("Paiement Facture H110001");
-
-        vEcritureComptable.setReference(vEcritureComptable.getJournal().getCode() +
-                "-" + vCurrentYear +
-                "/" + "00001"
-        );
-
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(606),
-                "Facture C110004", new BigDecimal(5700),
-                null));
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(4456),
-                "TMA Appli Xxx", null,
-                new BigDecimal(4750)));
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
-                "TVA 20%", null,
-                new BigDecimal(950)));
-
-        try {
-            manager.insertEcritureComptable(vEcritureComptable);
-        } catch (Exception e) {
-            fail("Une autre écriture comptable existe déjà avec la même référence.");
-        }*/
-    }
-
-    @Test
-    void updateEcritureComptable() {
-
-    }
-
-    @Test
-    void deleteEcritureComptable() {
-
-    }
-
-    @Test
-    void upsertSequenceEcritureComptable() {
-
     }
 }

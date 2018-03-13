@@ -19,12 +19,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ComptabiliteDaoImplTest extends ConsumerTestCase {
 
+    private static ComptabiliteDaoImpl dao;
     private static EcritureComptable vEcritureComptable;
     private static Date vCurrentDate;
     private static Integer vCurrentYear;
 
     @BeforeAll
     static void initAll() {
+        dao = new ComptabiliteDaoImpl();
         vCurrentDate = new Date();
         vCurrentYear = LocalDateTime.ofInstant(vCurrentDate.toInstant(), ZoneId.systemDefault()).toLocalDate().getYear();
     }
@@ -44,7 +46,7 @@ class ComptabiliteDaoImplTest extends ConsumerTestCase {
 
     @Test
     void getListCompteComptable() {
-        List<CompteComptable> vList = getDaoProxy().getComptabiliteDao().getListCompteComptable();
+        List<CompteComptable> vList = dao.getListCompteComptable();
         assertEquals(7, vList.size());
     }
 
@@ -53,7 +55,7 @@ class ComptabiliteDaoImplTest extends ConsumerTestCase {
 
     @Test
     void getListJournalComptable() {
-        List<JournalComptable> vList = getDaoProxy().getComptabiliteDao().getListJournalComptable();
+        List<JournalComptable> vList = dao.getListJournalComptable();
         assertEquals(4, vList.size());
     }
 
@@ -62,34 +64,34 @@ class ComptabiliteDaoImplTest extends ConsumerTestCase {
 
     @Test
     void getListEcritureComptable() {
-        List<EcritureComptable> vList = getDaoProxy().getComptabiliteDao().getListEcritureComptable();
+        List<EcritureComptable> vList = dao.getListEcritureComptable();
         assertEquals(5, vList.size());
     }
 
     @Test
     void getEcritureComptable() throws NotFoundException {
-        EcritureComptable vEcritureComptable = getDaoProxy().getComptabiliteDao().getEcritureComptable(-3);
+        EcritureComptable vEcritureComptable = dao.getEcritureComptable(-3);
         assertEquals("BQ-2016/00003", vEcritureComptable.getReference());
 
-        assertThrows(NotFoundException.class, () -> getDaoProxy().getComptabiliteDao().getEcritureComptable(0));
+        assertThrows(NotFoundException.class, () -> dao.getEcritureComptable(0));
     }
 
     @Test
     void getEcritureComptableByRef() throws NotFoundException {
-        EcritureComptable vEcritureComptable = getDaoProxy().getComptabiliteDao().getEcritureComptableByRef("BQ-2016/00003");
+        EcritureComptable vEcritureComptable = dao.getEcritureComptableByRef("BQ-2016/00003");
         assertEquals("BQ", vEcritureComptable.getJournal().getCode());
         String vEcritureYear = new SimpleDateFormat("yyyy").format(vEcritureComptable.getDate());
         assertEquals("2016", vEcritureYear);
         assertEquals(-3, vEcritureComptable.getId().intValue());
 
         assertThrows(NotFoundException.class, ()
-                -> getDaoProxy().getComptabiliteDao().getEcritureComptableByRef("BQ-2016/33333"));
+                -> dao.getEcritureComptableByRef("BQ-2016/33333"));
     }
 
     @Test
     void loadListLigneEcriture() {
         vEcritureComptable.setId(-5);
-        getDaoProxy().getComptabiliteDao().loadListLigneEcriture(vEcritureComptable);
+        dao.loadListLigneEcriture(vEcritureComptable);
         assertEquals(2, vEcritureComptable.getListLigneEcriture().size());
     }
 
@@ -113,7 +115,7 @@ class ComptabiliteDaoImplTest extends ConsumerTestCase {
                 "Facture S110001", null,
                 new BigDecimal(12)));
 
-        getDaoProxy().getComptabiliteDao().insertEcritureComptable(vEcritureComptable);
+        dao.insertEcritureComptable(vEcritureComptable);
     }
 
 
@@ -137,7 +139,7 @@ class ComptabiliteDaoImplTest extends ConsumerTestCase {
                 "Facture S110001", null,
                 new BigDecimal(12)));
 
-        getDaoProxy().getComptabiliteDao().updateEcritureComptable(vEcritureComptable);
+        dao.updateEcritureComptable(vEcritureComptable);
     }
 
 
@@ -145,7 +147,7 @@ class ComptabiliteDaoImplTest extends ConsumerTestCase {
 
     @Test
     void deleteEcritureComptable() {
-        getDaoProxy().getComptabiliteDao().deleteEcritureComptable(1);
+        dao.deleteEcritureComptable(1);
     }
 
 
@@ -156,7 +158,7 @@ class ComptabiliteDaoImplTest extends ConsumerTestCase {
         SequenceEcritureComptable vRechercheSequence = new SequenceEcritureComptable();
         vRechercheSequence.setJournalCode("OD");
         vRechercheSequence.setAnnee(2016);
-        SequenceEcritureComptable vExistingSequence = getDaoProxy().getComptabiliteDao().getSequenceByCodeAndAnneeCourante(vRechercheSequence);
+        SequenceEcritureComptable vExistingSequence = dao.getSequenceByCodeAndAnneeCourante(vRechercheSequence);
 
         if (vExistingSequence != null) {
             assertEquals("OD", vExistingSequence.getJournalCode());
@@ -166,7 +168,7 @@ class ComptabiliteDaoImplTest extends ConsumerTestCase {
 
         assertThrows(NotFoundException.class, () -> {
             vExistingSequence.setAnnee(1963);
-            getDaoProxy().getComptabiliteDao().getSequenceByCodeAndAnneeCourante(vExistingSequence);
+            dao.getSequenceByCodeAndAnneeCourante(vExistingSequence);
         });
     }
 
@@ -177,6 +179,6 @@ class ComptabiliteDaoImplTest extends ConsumerTestCase {
         vSequenceEcritureComptable.setAnnee(1963);
         vSequenceEcritureComptable.setDerniereValeur(42);
 
-        getDaoProxy().getComptabiliteDao().upsertSequenceEcritureComptable(vSequenceEcritureComptable);
+        dao.upsertSequenceEcritureComptable(vSequenceEcritureComptable);
     }
 }
