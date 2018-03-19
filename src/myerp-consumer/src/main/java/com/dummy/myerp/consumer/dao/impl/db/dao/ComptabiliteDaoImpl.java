@@ -289,7 +289,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
         }
     }
 
-    /** SQLinsertSequenceEcritureComptable */
+    /** SQLupsertSequenceEcritureComptable */
     private static String SQLupsertSequenceEcritureComptable;
     public void setSQLupsertSequenceEcritureComptable(String pSQLupsertSequenceEcritureComptable) {
         SQLupsertSequenceEcritureComptable = pSQLupsertSequenceEcritureComptable;
