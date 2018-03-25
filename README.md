@@ -64,3 +64,7 @@ Il comporte :
 *   Dans la classe `ComptabiliteManagerImpl`, implémentation de la méthode `addReference()`
 *   Dans la classe `ComptabiliteManagerImpl`, à la fin de la méthode `checkEcritureComptableUnit()`, vérifications permettant le respect de la règle de comptabilité 5
 *   Configuration des tests d'intégration de la couche consumer dans le dossier `test-consumer`
+
+## Travis CI et Jenkins
+
+Il y a le fichier de configuration `.travis.yml` de l'environnement d'intégration continue Travis CI et un document dédié à la configuration de Jenkins dans `doc/jenkins-conf.pdf`.
